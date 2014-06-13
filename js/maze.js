@@ -7,21 +7,21 @@
     /**
      * Maze map.
      *
-     * 0 - empty cell
+     * . - empty cell
      * 1 - breakable wall
-     * 2 - non-breakable wall
-     * 3 - exit
-     * 4 - player
+     * * - non-breakable wall
+     * E - exit
+     * P - player
      *
      */
-    var map = [
-        2, 2, 2, 2, 2, 2,
-        2, 0, 0, 0, 0, 2,
-        2, 0, 4, 0, 0, 3,
-        2, 0, 0, 0, 0, 2,
-        2, 0, 0, 0, 0, 2,
-        2, 2, 2, 2, 2, 2
-    ];
+
+    var map =
+        '******' +
+        '*....*' +
+        '*.P..E' +
+        '*....*' +
+        '*....*' +
+        '******';
 
     window.init = function() {
         console.log('Game loaded!');

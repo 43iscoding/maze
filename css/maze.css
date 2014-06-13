@@ -47,7 +47,7 @@ html, body {
     width:100%;
     text-align: center;
 
-    font: 1.6em Visitor;
+    font: 1.6em Monospace;
     color: #555;
     opacity: 1;
 }
@@ -69,7 +69,7 @@ html, body {
     margin-left: -90px;
     margin-top: 120px;
 
-    font: 1.6em Visitor;
+    font: 1.6em Monospace;
     color: #333;
 }
 
@@ -79,7 +79,7 @@ html, body {
     top: 0;
     left: 0;
 
-    font: 1.6em Visitor;
+    font: 1.6em Monospace;
     color: #77B;
 }
 

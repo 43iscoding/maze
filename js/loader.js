@@ -18,7 +18,7 @@
 
     function loaded() {
         var context = document.getElementById('canvas').getContext('2d');
-        context.font = "25px Visitor";
+        context.font = "25px Monospace";
         context.textAlign = "center";
         context.fillStyle = "black";
         context.fillRect(0, 0, WIDTH, HEIGHT);
@@ -36,7 +36,7 @@
 
     function updateLoading(value) {
         var context = document.getElementById('canvas').getContext('2d');
-        context.font = "25px Visitor";
+        context.font = "25px Monospace";
         context.textAlign = "center";
         context.fillStyle = "black";
         context.fillRect(0, 0, WIDTH, HEIGHT);

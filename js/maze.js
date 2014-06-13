@@ -10,7 +10,7 @@
         this.index = index;
         this.pos = getXY(index);
         this.objects = [ type ];
-        if (type == CELL.PLAYER) {
+        if (type == CELL.PLAYER || type == CELL.TREASURE) {
             this.objects.push(CELL.EMPTY);
         }
     }
@@ -61,6 +61,7 @@
      * P - Player
      * @ - Out of bounds
      * ~ - Bullet
+     * T - Treasure
      */
 
     window.CELL = {
@@ -73,7 +74,8 @@
         HOSPITAL : 'H',
         PLAYER : 'P',
         OUT_OF_BOUNDS : '@',
-        BULLET: '~'
+        BULLET: '~',
+        TREASURE: 'T'
     };
 
     function getPriority(object) {
@@ -82,6 +84,7 @@
             case CELL.PLAYER: return 5;
             case CELL.ARSENAL:
             case CELL.HOSPITAL:
+            case CELL.TREASURE:
             case CELL.EXIT: return 4;
             case CELL.OUTER_WALL: return 3;
             case CELL.WALL: return 2;
@@ -101,25 +104,30 @@
 
     var level1 =
         '******' +
-        '*....*' +
+        '*..T.*' +
         '*.P..E' +
         '*...H*' +
         '*..A.*' +
         '******' ;
 
-    var map = createLevel(level1);
+    var map = [];
 
     window.init = function() {
         console.log('Game loaded!');
-        printMapToHTML();
+        restart();
         input.onPressed(turn);
     };
 
+    function restart() {
+        map = createLevel(level1);
+        printMapToHTML();
+    }
 
     function turn(key) {
         action = processInput(key);
         if (action == actions.NONE) return;
         var result = processAction(action);
+        processTriggers();
         printMapToHTML();
     }
 
@@ -132,9 +140,23 @@
             return actions.MOVE_RIGHT;
         } else if (key == 'LEFT' || key == 'A') {
             return actions.MOVE_LEFT;
+        } else if (key == 'R') {
+            restart();
+            return actions.NONE;
         }
 
         return actions.NONE;
+    }
+
+    function processTriggers() {
+        //TODO: pickup treasure
+
+        //process exit
+        //TODO: process exit only if treasure is in inventory
+        if (map[getPlayer()].contains(CELL.EXIT)) {
+            console.log("WE WON!");
+            restart();
+        }
     }
 
     function processAction() {

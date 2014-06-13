@@ -1,5 +1,6 @@
 . add ammo
 . add bomb
+. player inventory (treasure etc)
 . enable Arsenal/Hospital/Exit
 . text-quest mode
 . multiple players (configurable from 1 to 4)

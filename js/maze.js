@@ -4,23 +4,38 @@
 
     var action = actions.NONE;
 
+    var DEBUG = false;
+
     /**
      * Maze map.
      *
-     * . - empty cell
-     * 1 - breakable wall
-     * * - non-breakable wall
-     * E - exit
-     * P - player
-     * @ - out of bounds
+     * . - Empty cell
+     * ^ - Inner wall
+     * * - Outer (Non-breakable) wall
+     * E - Exit
+     * A - Arsenal
+     * H - Hospital
+     * P - Player
+     * @ - Out of bounds
      */
+
+    window.CELL = {
+        EMPTY : '.',
+        WALL : '^',
+        OUTER_WALL : '*',
+        EXIT : 'E',
+        ARSENAL : 'A',
+        HOSPITAL : 'H',
+        PLAYER : 'P',
+        OUT_OF_BOUNDS : '@'
+    };
 
     var map =
         '******' +
         '*....*' +
         '*.P..E' +
-        '*....*' +
-        '*....*' +
+        '*...H*' +
+        '*..A.*' +
         '******';
 
     window.init = function() {
@@ -33,7 +48,7 @@
     function turn(key) {
         action = processInput(key);
         if (action == actions.NONE) return;
-        processAction(action);
+        var result = processAction(action);
         printMapToHTML();
     }
 
@@ -52,9 +67,49 @@
     }
 
     function processAction() {
-        //console.log("Process action: " + action);
-        console.log("player at index:" + getPlayer() + " {" + getXY(getPlayer()).x + ";" + getXY(getPlayer()).y + "}");
-        printNeighbours(getPlayer());
+        if (DEBUG) {
+            console.log("Process action: " + action);
+            console.log("player at index:" + getPlayer() + " {" + getXY(getPlayer()).x + ";" + getXY(getPlayer()).y + "}");
+            printNeighbours(getPlayer());
+        }
+
+        switch (action) {
+            case actions.MOVE_UP: {
+                return processMovement(getPlayer() - side);
+            }
+            case actions.MOVE_DOWN: {
+                return processMovement(getPlayer() + side);
+            }
+            case actions.MOVE_LEFT: {
+                return processMovement(getPlayer() - 1);
+            }
+            case actions.MOVE_RIGHT: {
+                return processMovement(getPlayer() + 1);
+            }
+            default: {
+                console.log("Unknown action: " + action);
+                return RESULT.UNKNOWN_ACTION;
+            }
+        }
+
+        return RESULT.OK;
+    }
+
+    function processMovement(target) {
+        if (DEBUG) console.log("process move: " + getPlayer() + " -> " + target);
+        var targetCell = cellAt(target);
+        if (targetCell == CELL.WALL || targetCell == CELL.OUTER_WALL) return RESULT.WALL;
+
+        updateMap(getPlayer(), CELL.EMPTY);
+        updateMap(target, CELL.PLAYER);
+
+        return RESULT.OK;
+    }
+
+    function updateMap(index, value) {
+        if (value < 0 || value > side * side - 1) return;
+
+        map = map.substr(0, index) + value + map.substr(index + 1);
     }
 
     function printNeighbours(index) {
@@ -76,14 +131,14 @@
     function cellAt(indexOrX, y) {
         var index = (y == undefined ? indexOrX : getIndex(indexOrX, y));
         if (index < 0 || index > side * side - 1) {
-            return '@';
+            return CELL.OUT_OF_BOUNDS;
         }
         return map[index];
     }
 
     function getPlayer() {
         for (var i = 0; i < map.length; i++) {
-            if (map[i] == 'P') return i;
+            if (map[i] == CELL.PLAYER) return i;
         }
         console.log("COULD NOT FIND PLAYER!");
         return -1;

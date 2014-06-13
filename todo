@@ -1,0 +1,10 @@
+. allow cell to store several objects
+. add ammo
+. add bomb
+. enable Arsenal/Hospital/Exit
+. text-quest mode
+. multiple players (configurable from 1 to 4)
+. maze presets of different size -> maze generator
+. action history -> back/rewind/replay
+. save/load
+. music

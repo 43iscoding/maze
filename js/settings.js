@@ -25,6 +25,12 @@
         WAIT: 'wait'
     };
 
+    window.RESULT = {
+        OK: 'OK',
+        WALL: 'WALL',
+        UNKNOWN_ACTION: 'UNKNOWN_ACTION'
+    };
+
     window.PIXEL_RATIO = function () {
         var ctx = document.getElementById("canvas").getContext("2d"),
             dpr = window.devicePixelRatio || 1,

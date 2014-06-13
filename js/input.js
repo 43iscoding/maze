@@ -4,6 +4,7 @@
 
     var pressed = {};
     var lastPressed = null;
+    var onPressedCallback = null;
 
     document.addEventListener("keydown", function (e) {
         setKey(e.which, true);
@@ -49,8 +50,12 @@
         }
 
         if (state) {
+            if (!pressed[key] && onPressedCallback != null) {
+                onPressedCallback(key);
+            }
             lastPressed = key;
         }
+
         pressed[key] = state;
     }
 
@@ -68,6 +73,9 @@
         clearInput: clearInput,
         lastPressed: function() {
             return lastPressed;
+        },
+        onPressed: function(callback) {
+            onPressedCallback = callback;
         },
         keys: {
             BACKSPACE: {key: 'BACKSPACE', code: 8}, TAB: {key: 'TAB', code: 9}, ENTER: {key: 'ENTER', code: 13}, SHIFT: {key: 'SHIFT', code: 16},

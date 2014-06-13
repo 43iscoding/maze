@@ -1,7 +1,6 @@
 (function(){
 
-    var width = 6;
-    var height = 6;
+    var side = 6;
 
     var action = actions.NONE;
 
@@ -26,31 +25,29 @@
 
     window.init = function() {
         console.log('Game loaded!');
-        gameTick();
+        input.onPressed(turn);
     };
 
-    function gameTick() {
-        action = actions.NONE;
-        processInput();
-        if (action != actions.NONE) {
-            processAction();
-        }
+
+    function turn(key) {
+        action = processInput(key);
+        if (action == actions.NONE) return;
+        processAction(action);
         printMapToHTML();
-        setTimeout(gameTick, 1000);
     }
 
-    function processInput() {
-        var last = input.lastPressed();
-        if (last == 'UP' || last == 'W') {
-            action = actions.MOVE_UP;
-        } else if (last == 'DOWN' || last == 'S') {
-            action = actions.MOVE_DOWN;
-        } else if (last == 'RIGHT' || last == 'D') {
-            action = actions.MOVE_RIGHT;
-        } else if (last == 'LEFT' || last == 'A') {
-            action = actions.MOVE_LEFT;
+    function processInput(key) {
+        if (key == 'UP' || key == 'W') {
+            return actions.MOVE_UP;
+        } else if (key == 'DOWN' || key == 'S') {
+            return actions.MOVE_DOWN;
+        } else if (key == 'RIGHT' || key == 'D') {
+            return actions.MOVE_RIGHT;
+        } else if (key == 'LEFT' || key == 'A') {
+            return actions.MOVE_LEFT;
         }
-        input.clearInput();
+
+        return actions.NONE;
     }
 
     function processAction() {
@@ -63,7 +60,7 @@
         mapContainer.innerHTML = "";
         for (var i = 0; i < map.length; i++) {
             mapContainer.innerHTML += map[i];
-            if ((i + 1) % width == 0) {
+            if ((i + 1) % side == 0) {
                 mapContainer.innerHTML += '\n';
             }
         }

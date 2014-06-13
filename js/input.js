@@ -1,5 +1,10 @@
 (function() {
+
+    var DEBUG = false;
+
     var pressed = {};
+    var lastPressed = null;
+
     document.addEventListener("keydown", function (e) {
         setKey(e.which, true);
     });
@@ -38,6 +43,14 @@
                 key = String.fromCharCode(keyCode);
                 break;
         }
+
+        if (pressed[key] != state && DEBUG) {
+            console.log((state ? "Key down: " : "Key up: ") + key);
+        }
+
+        if (state) {
+            lastPressed = key;
+        }
         pressed[key] = state;
     }
 
@@ -47,11 +60,15 @@
 
     function clearInput() {
         pressed = {};
+        lastPressed = null;
     }
 
     window.input = {
         isPressed: isPressed,
         clearInput: clearInput,
+        lastPressed: function() {
+            return lastPressed;
+        },
         keys: {
             BACKSPACE: {key: 'BACKSPACE', code: 8}, TAB: {key: 'TAB', code: 9}, ENTER: {key: 'ENTER', code: 13}, SHIFT: {key: 'SHIFT', code: 16},
             CTRL: {key: 'CTRL', code: 17}, ALT: {key: 'ALT', code: 18}, HOME: {key: 'HOME', code: 36}, END: {key: 'END', code: 35},

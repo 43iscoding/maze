@@ -16,6 +16,15 @@
         ALL : "mute_all"
     };
 
+    window.actions = {
+        NONE: 'none',
+        MOVE_UP: 'up',
+        MOVE_DOWN: 'down',
+        MOVE_LEFT: 'left',
+        MOVE_RIGHT: 'right',
+        WAIT: 'wait'
+    };
+
     window.PIXEL_RATIO = function () {
         var ctx = document.getElementById("canvas").getContext("2d"),
             dpr = window.devicePixelRatio || 1,

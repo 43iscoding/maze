@@ -24,7 +24,14 @@
         context.fillRect(0, 0, WIDTH, HEIGHT);
         context.fillStyle = "#555";
         context.fillText("LOADED!", WIDTH / 2, HEIGHT / 2);
-        setTimeout(init, 1000);
+        setTimeout(proceed, 1000);
+    }
+
+    function proceed() {
+        var context = document.getElementById('canvas').getContext('2d');
+        context.fillStyle = "black";
+        context.fillRect(0, 0, WIDTH, HEIGHT);
+        init();
     }
 
     function updateLoading(value) {

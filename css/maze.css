@@ -75,10 +75,9 @@ html, body {
 
 .test {
     display: block;
-    margin: auto;
-
-
-    vertical-align: middle;
+    position: absolute;
+    top: 0;
+    left: 0;
 
     font: 1.6em Visitor;
     color: #77B;

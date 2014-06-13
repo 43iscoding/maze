@@ -12,7 +12,7 @@
      * * - non-breakable wall
      * E - exit
      * P - player
-     *
+     * @ - out of bounds
      */
 
     var map =
@@ -52,7 +52,41 @@
     }
 
     function processAction() {
-        console.log("Process action: " + action);
+        //console.log("Process action: " + action);
+        console.log("player at index:" + getPlayer() + " {" + getXY(getPlayer()).x + ";" + getXY(getPlayer()).y + "}");
+        printNeighbours(getPlayer());
+    }
+
+    function printNeighbours(index) {
+        console.log("Neighbours: ");
+        console.log("  Up: " + cellAt(index - side));
+        console.log("  Down: " + cellAt(index + side));
+        console.log("  Left: " + cellAt(index - 1));
+        console.log("  Right: " + cellAt(index + 1));
+    }
+
+    function getXY(index) {
+        return {x: index % side, y: Math.floor(index / side)};
+    }
+
+    function getIndex(x, y) {
+        return y * side + x;
+    }
+
+    function cellAt(indexOrX, y) {
+        var index = (y == undefined ? indexOrX : getIndex(indexOrX, y));
+        if (index < 0 || index > side * side - 1) {
+            return '@';
+        }
+        return map[index];
+    }
+
+    function getPlayer() {
+        for (var i = 0; i < map.length; i++) {
+            if (map[i] == 'P') return i;
+        }
+        console.log("COULD NOT FIND PLAYER!");
+        return -1;
     }
 
     function printMapToHTML() {

@@ -25,6 +25,7 @@
 
     window.init = function() {
         console.log('Game loaded!');
+        printMapToHTML();
         input.onPressed(turn);
     };
 

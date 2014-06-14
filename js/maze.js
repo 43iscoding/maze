@@ -73,20 +73,22 @@
         PLAYER : 'P',
         OUT_OF_BOUNDS : '@',
         BULLET: '~',
-        TREASURE: 'T'
+        TREASURE: 'T',
+        PORTAL: 'O'
     };
 
     function getPriority(object) {
         switch (object) {
             case CELL.OUT_OF_BOUNDS: return 6;
             case CELL.PLAYER: return 5;
+            case CELL.BULLET: return 4;
             case CELL.ARSENAL:
             case CELL.HOSPITAL:
             case CELL.TREASURE:
-            case CELL.EXIT: return 4;
-            case CELL.OUTER_WALL: return 3;
-            case CELL.WALL: return 2;
-            case CELL.BULLET: return 1;
+            case CELL.EXIT: return 3;
+            case CELL.OUTER_WALL: return 2;
+            case CELL.WALL:
+            case CELL.PORTAL: return 1;
             case CELL.EMPTY: return 0;
             case CELL.UNKNOWN: return -1;
         }
@@ -155,6 +157,8 @@
         action = processInput(key);
         if (action == actions.NONE) return;
         var result = processAction(action);
+        if (DEBUG) console.log(result);
+        printToConsole(result);
         processTriggers();
         printMapToHTML();
     }
@@ -171,6 +175,14 @@
         } else if (key == 'R') {
             restart();
             return actions.NONE;
+        } else if (key == 'SPACE') {
+            return actions.SHOOT;
+        } else if (key == 'B') {
+            return actions.BOMB;
+        } else if (key == 'J') {
+            return actions.JUMP;
+        } else if (key == 'H') {
+            return actions.HOLD;
         }
 
         return actions.NONE;
@@ -207,6 +219,23 @@
             case actions.MOVE_RIGHT: {
                 return processMovement(getPlayer() + 1);
             }
+            case actions.HOLD: {
+                return RESULT.OK;
+            }
+            case actions.SHOOT: {
+                return RESULT.NO_AMMO;
+            }
+            case actions.BOMB: {
+                return RESULT.NO_BOMB;
+            }
+            case actions.JUMP: {
+                if (map[getPlayer()].contains(CELL.PORTAL)) {
+                    console.log("JUMP!");
+                    return RESULT.OK;
+                }
+                return RESULT.NO_PORTAL;
+            }
+
             default: {
                 console.log("Unknown action: " + action);
                 return RESULT.UNKNOWN_ACTION;
@@ -274,14 +303,19 @@
     }
 
     function printMapToHTML() {
-        var mapContainer = document.getElementById('mapContainer');
-        mapContainer.style.width = "15px";
-        mapContainer.innerHTML = "";
+        var mapDiv = document.getElementById('mapDiv');
+        mapDiv.style.width = "15px";
+        mapDiv.innerHTML = "";
         for (var i = 0; i < map.length; i++) {
-            mapContainer.innerHTML += map[i].getValue();
+            mapDiv.innerHTML += map[i].getValue();
             if ((i + 1) % getMapSide() == 0) {
-                mapContainer.innerHTML += '\n';
+                mapDiv.innerHTML += '\n';
             }
         }
+    }
+
+    function printToConsole(text) {
+        var consoleDiv = document.getElementById('consoleDiv');
+        consoleDiv.innerHTML = text;
     }
 }());

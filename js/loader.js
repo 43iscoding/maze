@@ -18,11 +18,11 @@
 
     function loaded() {
         var context = document.getElementById('canvas').getContext('2d');
-        context.font = "25px Monospace";
+        context.font = "25px Monospace bold";
         context.textAlign = "center";
         context.fillStyle = "black";
         context.fillRect(0, 0, WIDTH, HEIGHT);
-        context.fillStyle = "#555";
+        context.fillStyle = "#77B";
         context.fillText("LOADED!", WIDTH / 2, HEIGHT / 2);
         setTimeout(proceed, 1000);
     }
@@ -36,11 +36,11 @@
 
     function updateLoading(value) {
         var context = document.getElementById('canvas').getContext('2d');
-        context.font = "25px Monospace";
+        context.font = "25px Monospace bold";
         context.textAlign = "center";
         context.fillStyle = "black";
         context.fillRect(0, 0, WIDTH, HEIGHT);
-        context.fillStyle = "#555";
+        context.fillStyle = "#77B";
         context.fillText("Loading: " + value + "%", WIDTH / 2, HEIGHT / 2);
     }
 

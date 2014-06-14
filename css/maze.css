@@ -73,14 +73,16 @@ html, body {
     color: #333;
 }
 
-.test {
+.mazeText {
     display: block;
     position: absolute;
-    top: 0;
-    left: 0;
 
     font: 1.6em Monospace;
     color: #77B;
+}
+
+#consoleDiv {
+    top: 85%;
 }
 
 #mail {

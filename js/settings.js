@@ -22,13 +22,19 @@
         MOVE_DOWN: 'down',
         MOVE_LEFT: 'left',
         MOVE_RIGHT: 'right',
-        WAIT: 'wait'
+        HOLD: 'hold',
+        SHOOT: 'shoot',
+        BOMB: 'bomb',
+        JUMP: 'jump'
     };
 
     window.RESULT = {
         OK: 'OK',
         WALL: 'WALL',
-        UNKNOWN_ACTION: 'UNKNOWN_ACTION'
+        UNKNOWN_ACTION: 'UNKNOWN_ACTION',
+        NO_AMMO: 'NO_AMMO',
+        NO_BOMB: 'NO_BOMB',
+        NO_PORTAL: 'NO_PORTAL'
     };
 
     window.PIXEL_RATIO = function () {

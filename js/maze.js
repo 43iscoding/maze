@@ -1,7 +1,5 @@
 (function(){
 
-    var side = 6;
-
     var action = actions.NONE;
 
     var DEBUG = false;
@@ -103,6 +101,12 @@
     }
 
     var level1 =
+        '****' +
+        '*P.*' +
+        '*..E' +
+        '****' ;
+
+    var level2 =
         '******' +
         '*..T.*' +
         '*.P..E' +
@@ -110,7 +114,30 @@
         '*..A.*' +
         '******' ;
 
+    var level3 =
+        '*E******' +
+        '*.^T...*' +
+        '*.^.^..*' +
+        '*.^.^^.*' +
+        '*..P^H.*' +
+        '*.^^^^^*' +
+        '*....A.*' +
+        '********' ;
+
     var map = [];
+
+    var levels = [level1, level2, level3];
+
+    var currentLevelIndex = -1;
+
+    function getNextLevel() {
+        currentLevelIndex = ++currentLevelIndex % levels.length;
+        return levels[currentLevelIndex];
+    }
+
+    function getMapSide() {
+        return Math.sqrt(map.length);
+    }
 
     window.init = function() {
         console.log('Game loaded!');
@@ -119,7 +146,8 @@
     };
 
     function restart() {
-        map = createLevel(level1);
+        var level = getNextLevel();
+        map = createLevel(level);
         printMapToHTML();
     }
 
@@ -168,10 +196,10 @@
 
         switch (action) {
             case actions.MOVE_UP: {
-                return processMovement(getPlayer() - side);
+                return processMovement(getPlayer() - getMapSide());
             }
             case actions.MOVE_DOWN: {
-                return processMovement(getPlayer() + side);
+                return processMovement(getPlayer() + getMapSide());
             }
             case actions.MOVE_LEFT: {
                 return processMovement(getPlayer() - 1);
@@ -208,30 +236,30 @@
     }
 
     function updateMap(index, value) {
-        if (value < 0 || value > side * side - 1) return;
+        if (value < 0 || value > getMapSide() * getMapSide() - 1) return;
 
         map = map.substr(0, index) + value + map.substr(index + 1);
     }
 
     function printNeighbours(index) {
         console.log("Neighbours: ");
-        console.log("  Up: " + cellAt(index - side));
-        console.log("  Down: " + cellAt(index + side));
+        console.log("  Up: " + cellAt(index - getMapSide()));
+        console.log("  Down: " + cellAt(index + getMapSide()));
         console.log("  Left: " + cellAt(index - 1));
         console.log("  Right: " + cellAt(index + 1));
     }
 
     function getXY(index) {
-        return {x: index % side, y: Math.floor(index / side)};
+        return {x: index % getMapSide(), y: Math.floor(index / getMapSide())};
     }
 
     function getIndex(x, y) {
-        return y * side + x;
+        return y * getMapSide() + x;
     }
 
     function cellAt(indexOrX, y) {
         var index = (y == undefined ? indexOrX : getIndex(indexOrX, y));
-        if (index < 0 || index > side * side - 1) {
+        if (index < 0 || index > getMapSide() * getMapSide() - 1) {
             return CELL.OUT_OF_BOUNDS;
         }
         return map[index];
@@ -251,7 +279,7 @@
         mapContainer.innerHTML = "";
         for (var i = 0; i < map.length; i++) {
             mapContainer.innerHTML += map[i].getValue();
-            if ((i + 1) % side == 0) {
+            if ((i + 1) % getMapSide() == 0) {
                 mapContainer.innerHTML += '\n';
             }
         }

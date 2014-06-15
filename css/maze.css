@@ -81,8 +81,12 @@ html, body {
     color: #77B;
 }
 
-#consoleDiv {
+#consoleOutput {
     top: 85%;
+}
+
+#consoleInput {
+    top: 60%;
 }
 
 #mail {

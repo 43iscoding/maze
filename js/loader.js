@@ -10,9 +10,9 @@
         var canvas = document.getElementById('canvas');
         var context = canvas.getContext('2d');
         canvas.width = WIDTH * PIXEL_RATIO();
-        canvas.height = (HEIGHT + PANEL_HEIGHT) * PIXEL_RATIO();
+        canvas.height = HEIGHT * PIXEL_RATIO();
         canvas.style.width = WIDTH + 'px';
-        canvas.style.height = HEIGHT + PANEL_HEIGHT + 'px';
+        canvas.style.height = HEIGHT + 'px';
         context.setTransform(PIXEL_RATIO(), 0, 0, PIXEL_RATIO(), 0, 0);
     }
 
@@ -28,9 +28,12 @@
     }
 
     function proceed() {
-        var context = document.getElementById('canvas').getContext('2d');
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
         context.fillStyle = "black";
         context.fillRect(0, 0, WIDTH, HEIGHT);
+        //hide canvas
+        canvas.style.display = 'none';
         init();
     }
 

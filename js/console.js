@@ -31,12 +31,27 @@
     var dictionary = initDictionary();
 
     window.mazeConsole = {
-        print : print
+        print : print,
+        input : processInput
     };
 
+    function processInput(key) {
+        var consoleInput = document.getElementById("consoleInput");
+        if (key == 'BACKSPACE') {
+            consoleInput.innerHTML = consoleInput.innerHTML.substring(0, consoleInput.innerHTML.length - 1);
+        } else if (key == 'ENTER') {
+            processCommand(consoleInput.innerHTML);
+            consoleInput.innerHTML = '';
+        } else if (input.isAlphaNumeric(key)) {
+            consoleInput.innerHTML += key;
+        } else if (key == 'SPACE') {
+            consoleInput.innerHTML += ' ';
+        }
+    }
+
     function print(key) {
-        var consoleDiv = document.getElementById('consoleDiv');
-        consoleDiv.innerHTML = get(key);
+        var output = document.getElementById('consoleOutput');
+        output.innerHTML = get(key);
     }
 
     function get(key) {

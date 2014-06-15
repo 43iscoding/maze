@@ -2,8 +2,15 @@
     //ui settings
     window.fps = 60;
     window.WIDTH = 320;
-    window.HEIGHT = 200;
-    window.PANEL_HEIGHT = 40;
+    window.HEIGHT = 240;
+
+    window.GAME_MODE = {
+        TEXT: 'TEXT',
+        KEYBOARD: 'KEYBOARD',
+        MOUSE: 'MOUSE'
+    };
+
+    window.gameMode = GAME_MODE.KEYBOARD;
 
     window.cookie = {
         MUTED : "muted",
@@ -17,15 +24,15 @@
     };
 
     window.actions = {
-        NONE: 'none',
-        MOVE_UP: 'up',
-        MOVE_DOWN: 'down',
-        MOVE_LEFT: 'left',
-        MOVE_RIGHT: 'right',
-        HOLD: 'hold',
-        SHOOT: 'shoot',
-        BOMB: 'bomb',
-        JUMP: 'jump'
+        NONE: 'NONE',
+        MOVE_UP: 'UP',
+        MOVE_DOWN: 'DOWN',
+        MOVE_LEFT: 'LEFT',
+        MOVE_RIGHT: 'RIGHT',
+        HOLD: 'HOLD',
+        SHOOT: 'SHOOT',
+        BOMB: 'BOMB',
+        JUMP: 'JUMP'
     };
 
     window.RESULT = {

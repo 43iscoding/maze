@@ -1,9 +1,15 @@
-Vitbuk. Inventory: Ammo, Bombs, Treasure
-Vitbuk. Trigger exit only when you have treasure
-Vitbuk. When shooting: remove ammo & bombs, if no bombs - print warning.
-Vitbuk. Replenish ammo/bomb when visiting Arsenal.
+Vitbuk:
+. Inventory: Ammo, Bombs, Treasure
+. Trigger exit only when you have treasure
+. When shooting: remove ammo & bombs, if no bombs - print warning.
+. Replenish ammo/bomb when visiting Arsenal.
 
-. text-quest mode
+
+Text-mode:
+. tab/auto-complete
+. up/history
+
+. mouse-mode
 . multiple players (configurable from 1 to 4)
 . maze presets of different size -> maze generator
 . action history -> back/rewind/replay

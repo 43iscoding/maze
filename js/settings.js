@@ -34,7 +34,8 @@
         UNKNOWN_ACTION: 'UNKNOWN_ACTION',
         NO_AMMO: 'NO_AMMO',
         NO_BOMB: 'NO_BOMB',
-        NO_PORTAL: 'NO_PORTAL'
+        NO_PORTAL: 'NO_PORTAL',
+        JUMP: "JUMP"
     };
 
     window.PIXEL_RATIO = function () {

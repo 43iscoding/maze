@@ -19,6 +19,9 @@
         dict[RESULT.NO_PORTAL] = {
             en: ["There is no portal here", "Error 404: Portal not found"]
         };
+        dict[RESULT.JUMP] = {
+            en: ["You have jumped through the portal", "You have been teleported"]
+        };
         dict[RESULT.UNKNOWN_ACTION] = {
             en: ["Unknown action: What are you trying to do?", "Unknown action - You should not see this message"]
         };

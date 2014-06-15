@@ -102,47 +102,13 @@
         return newMap;
     }
 
-    var level1 =
-        '****' +
-        '*P.*' +
-        '*..E' +
-        '****' ;
-
-    var level2 =
-        '******' +
-        '*..T.*' +
-        '*.P..E' +
-        '*...H*' +
-        '*..A.*' +
-        '******' ;
-
-    var level3 =
-        '*E******' +
-        '*.^T...*' +
-        '*.^.^..*' +
-        '*.^.^^.*' +
-        '*..P^H.*' +
-        '*.^^^^^*' +
-        '*....A.*' +
-        '********' ;
-
     var map = [];
-
-    var levels = [level1, level2, level3];
-
-    var currentLevelIndex = -1;
-
-    function getNextLevel() {
-        currentLevelIndex = ++currentLevelIndex % levels.length;
-        return levels[currentLevelIndex];
-    }
 
     function getMapSide() {
         return Math.sqrt(map.length);
     }
 
     window.init = function() {
-        console.log('Game loaded!');
         restart();
         input.onPressed(turn);
     };
@@ -194,7 +160,6 @@
         //process exit
         //TODO: process exit only if treasure is in inventory
         if (map[getPlayer()].contains(CELL.EXIT)) {
-            console.log("WE WON!");
             restart();
         }
     }
@@ -229,13 +194,8 @@
                 return RESULT.NO_BOMB;
             }
             case actions.JUMP: {
-                if (map[getPlayer()].contains(CELL.PORTAL)) {
-                    console.log("JUMP!");
-                    return RESULT.OK;
-                }
-                return RESULT.NO_PORTAL;
+                return processJump();
             }
-
             default: {
                 console.log("Unknown action: " + action);
                 return RESULT.UNKNOWN_ACTION;
@@ -243,6 +203,38 @@
         }
 
         return RESULT.OK;
+    }
+
+    function processJump() {
+        if (map[getPlayer()].contains(CELL.PORTAL)) {
+            var target = getDestinationPortal(getPlayer());
+            if (target != -1) {
+                remove(getPlayer(), CELL.PLAYER);
+                add(target, CELL.PLAYER);
+                return RESULT.JUMP;
+            } else {
+                return RESULT.NO_PORTAL;
+            }
+
+        }
+        return RESULT.NO_PORTAL;
+    }
+
+    function getDestinationPortal(current) {
+        var candidates = [];
+        for (var i = 0; i < map.length; i++) {
+            if (map[i].contains(CELL.PORTAL) && i != current) {
+                candidates.push(i);
+            }
+        }
+
+        if (candidates.length > 0) {
+            return candidates[Math.round(Math.random() * (candidates.length - 1))];
+        }
+
+        var pos = getXY(current);
+        console.log("Could not find destination portal for (" + pos.x + "," + pos.y + "). Level index: " + getLevelIndex());
+        return -1;
     }
 
     function processMovement(target) {
@@ -262,12 +254,6 @@
 
     function add(index, value) {
         map[index].addObject(value);
-    }
-
-    function updateMap(index, value) {
-        if (value < 0 || value > getMapSide() * getMapSide() - 1) return;
-
-        map = map.substr(0, index) + value + map.substr(index + 1);
     }
 
     function printNeighbours(index) {

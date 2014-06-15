@@ -1,7 +1,8 @@
-. add ammo
-. add bomb
-. player inventory (treasure etc)
-. enable Arsenal/Hospital/Exit
+Vitbuk. Inventory: Ammo, Bombs, Treasure
+Vitbuk. Trigger exit only when you have treasure
+Vitbuk. When shooting: remove ammo & bombs, if no bombs - print warning.
+Vitbuk. Replenish ammo/bomb when visiting Arsenal.
+
 . text-quest mode
 . multiple players (configurable from 1 to 4)
 . maze presets of different size -> maze generator

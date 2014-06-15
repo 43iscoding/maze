@@ -8,7 +8,10 @@ Vitbuk:
 Text-mode:
 . tab/auto-complete
 . up/history
+. action synonyms
 
+. more responses
+. move triggers to processAction()
 . mouse-mode
 . multiple players (configurable from 1 to 4)
 . maze presets of different size -> maze generator

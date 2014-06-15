@@ -158,7 +158,7 @@
         if (action == actions.NONE) return;
         var result = processAction(action);
         if (DEBUG) console.log(result);
-        printToConsole(result);
+        mazeConsole.print(result);
         processTriggers();
         printMapToHTML();
     }
@@ -314,8 +314,5 @@
         }
     }
 
-    function printToConsole(text) {
-        var consoleDiv = document.getElementById('consoleDiv');
-        consoleDiv.innerHTML = text;
-    }
+
 }());

@@ -4,6 +4,10 @@
 
     var DEBUG = false;
 
+    var hasTreasure = false;
+    var ammo = 0;
+    var bomb = 0;
+
     function Cell(index, type) {
         this.index = index;
         this.pos = getXY(index);
@@ -167,8 +171,6 @@
     function processAction() {
         if (DEBUG) {
             console.log("Process action: " + action);
-            console.log("player at index:" + getPlayer() + " {" + getXY(getPlayer()).x + ";" + getXY(getPlayer()).y + "}");
-            printNeighbours(getPlayer());
         }
 
         switch (action) {
@@ -240,7 +242,7 @@
     function processMovement(target) {
         if (DEBUG) console.log("process move: " + getPlayer() + " -> " + target);
         var targetCell = cellAt(target);
-        if (targetCell == CELL.WALL || targetCell == CELL.OUTER_WALL) return RESULT.WALL;
+        if (targetCell.contains(CELL.WALL) || targetCell.contains(CELL.OUTER_WALL)) return RESULT.WALL;
 
         remove(getPlayer(), CELL.PLAYER);
         add(target, CELL.PLAYER);

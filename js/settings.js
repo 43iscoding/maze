@@ -42,7 +42,10 @@
         NO_AMMO: 'NO_AMMO',
         NO_BOMB: 'NO_BOMB',
         NO_PORTAL: 'NO_PORTAL',
-        JUMP: "JUMP"
+        JUMP: "JUMP",
+        ARSENAL: "ARSENAL",
+        PICKUP_TREASURE: "PICKUP_TREASURE",
+        CANT_EXIT: "CANT_EXIT"
     };
 
     window.PIXEL_RATIO = function () {

@@ -5,10 +5,10 @@
     var DEBUG = true;
 
     var hasTreasure = false;
-    var ammo = 0;
-    var bomb = 0;
     var maxAmmo = 2;
     var maxBomb = 1;
+    var ammo = maxAmmo;
+    var bomb = maxBomb;
 
     function Cell(index, type) {
         this.index = index;
@@ -161,10 +161,18 @@
     }
 
     function processTriggers() {
+        //move to Arsenal
+        if (map[getPlayer()].contains(CELL.ARSENAL)){
+            ammo = maxAmmo;
+            bomb = maxBomb;
+            return RESULT.ARSENAL;
+        }
+
         //TODO: pickup treasure
-        if (CELL.PLAYER == CELL.TREASURE ){
+        if (map[getPlayer()].contains(CELL.TREASURE) ){
             hasTreasure = true;
-            CELL.TREASURE = CELL.EMPTY;
+            remove(getPlayer(), CELL.TREASURE);
+            return RESULT.PICKUP_TREASURE;
         }
         //process exit
         //TODO: process exit only if treasure is in inventory
@@ -195,10 +203,22 @@
                 return RESULT.OK;
             }
             case actions.SHOOT: {
-                return RESULT.NO_AMMO;
+                if (ammo > 0){
+                    ammo -=1;
+                    return RESULT.OK;
+                }
+                else {
+                    return RESULT.NO_AMMO;
+                }
             }
             case actions.BOMB: {
-                return RESULT.NO_BOMB;
+                if (bomb >0){
+                    bomb -=1;
+                    return RESULT.OK;
+                }
+                else {
+                    return RESULT.NO_BOMB;
+                }
             }
             case actions.JUMP: {
                 return processJump();
@@ -247,6 +267,7 @@
     function processMovement(target) {
         if (DEBUG) console.log("process move: " + getPlayer() + " -> " + target);
         var targetCell = cellAt(target);
+        if (hasTreasure == false && targetCell.contains(CELL.EXIT)) return RESULT.EXIT;
         if (targetCell.contains(CELL.WALL) || targetCell.contains(CELL.OUTER_WALL)) return RESULT.WALL;
 
         remove(getPlayer(), CELL.PLAYER);

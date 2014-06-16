@@ -7,6 +7,8 @@
     var hasTreasure = false;
     var ammo = 0;
     var bomb = 0;
+    var maxAmmo = 2;
+    var maxBomb = 1;
 
     function Cell(index, type) {
         this.index = index;
@@ -160,7 +162,10 @@
 
     function processTriggers() {
         //TODO: pickup treasure
-
+        if (CELL.PLAYER == CELL.TREASURE ){
+            hasTreasure = true;
+            CELL.TREASURE = CELL.EMPTY;
+        }
         //process exit
         //TODO: process exit only if treasure is in inventory
         if (map[getPlayer()].contains(CELL.EXIT)) {

@@ -1,6 +1,8 @@
 (function(){
 
-    var DEBUG = false;
+    var action = actions.NONE;
+
+    var DEBUG = true;
 
     var hasTreasure = false;
     var ammo = 0;
@@ -122,31 +124,7 @@
     }
 
     function turn(key) {
-        if (gameMode == GAME_MODE.TEXT) {
-            mazeConsole.input(key);
-        } else if (gameMode == GAME_MODE.KEYBOARD) {
-            process(processInput(key));
-        } else if (gameMode == GAME_MODE.MOUSE) {
-            //process special input for mouse-only mode
-            console.log("Mouse mode not currently enabled");
-        } else {
-            console.log("Cannot process input. Unknown game mode: " + gameMode);
-        }
-
-    }
-
-    window.processCommand = function(command) {
-        process(getAction(command));
-    };
-
-    function getAction(command) {
-        for (var action in actions) {
-            if (command == actions[action]) return actions[action];
-        }
-        return command;
-    }
-
-    function process(action) {
+        action = processInput(key);
         if (action == actions.NONE) return;
         var result = processAction(action);
         if (DEBUG) console.log(result);
@@ -190,7 +168,7 @@
         }
     }
 
-    function processAction(action) {
+    function processAction() {
         if (DEBUG) {
             console.log("Process action: " + action);
         }

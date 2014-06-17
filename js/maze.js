@@ -122,12 +122,18 @@
     function proceedToNextLevel() {
         var level = getNextLevel();
         map = createLevel(level);
+        hasTreasure = false;
+        ammo = maxAmmo;
+        bomb = maxBomb;
         printMapToHTML();
     }
 
     function restart() {
         var level = getCurrentLevel();
         map = createLevel(level);
+        hasTreasure = false;
+        ammo = maxAmmo;
+        bomb = maxBomb;
         printMapToHTML();
     }
 
@@ -137,7 +143,6 @@
         var result = processAction(action);
         if (DEBUG) console.log(result);
         mazeConsole.print(result);
-        processTriggers();
         printMapToHTML();
     }
 
@@ -166,25 +171,32 @@
         return actions.NONE;
     }
 
-    function processTriggers() {
-        //move to Arsenal
+    function isItArsenal() {
         if (map[getPlayer()].contains(CELL.ARSENAL)) {
             ammo = maxAmmo;
             bomb = maxBomb;
             return RESULT.ARSENAL;
         }
+    }
 
-        //TODO: pickup treasure
+    function isItTreasure() {
         if (map[getPlayer()].contains(CELL.TREASURE)) {
             hasTreasure = true;
             remove(getPlayer(), CELL.TREASURE);
             return RESULT.PICKUP_TREASURE;
         }
-        //process exit
-        //TODO: process exit only if treasure is in inventory
+    }
+
+    function isItExit() {
         if (map[getPlayer()].contains(CELL.EXIT)) {
             proceedToNextLevel();
         }
+    }
+
+    function checkCell(){
+        isItArsenal();
+        isItTreasure();
+        isItExit();
     }
 
     function processAction() {
@@ -210,7 +222,7 @@
             }
             case actions.SHOOT: {
                 if (ammo > 0){
-                    ammo -=1;
+                    ammo--;
                     return RESULT.OK;
                 }
                 else {
@@ -219,7 +231,7 @@
             }
             case actions.BOMB: {
                 if (bomb >0){
-                    bomb -=1;
+                    bomb--;
                     return RESULT.OK;
                 }
                 else {
@@ -273,12 +285,13 @@
     function processMovement(target) {
         if (DEBUG) console.log("process move: " + getPlayer() + " -> " + target);
         var targetCell = cellAt(target);
-        if (hasTreasure == false && targetCell.contains(CELL.EXIT)) return RESULT.CANT_EXIT;
+        if (!hasTreasure && targetCell.contains(CELL.EXIT)) return RESULT.CANT_EXIT;
         if (targetCell.contains(CELL.WALL) || targetCell.contains(CELL.OUTER_WALL)) return RESULT.WALL;
 
         remove(getPlayer(), CELL.PLAYER);
         add(target, CELL.PLAYER);
 
+        checkCell();
         return RESULT.OK;
     }
 

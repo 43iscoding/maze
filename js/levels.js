@@ -26,7 +26,17 @@
         '*....AO*' +
         '********' ;
 
-    window.levels = [level1, level2, level3];
+    var level4 =
+        '***E****' +
+        '*.^....*' +
+        '*...^^P*' +
+        '*.^^^H.*' +
+        '*..A^^.*' +
+        '*.^^...*' +
+        '*O^T.^O*' +
+        '********' ;
+
+    window.levels = [level1, level2, level3, level4];
     window.getLevelIndex = function() {
         return currentLevelIndex;
     };

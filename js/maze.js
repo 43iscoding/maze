@@ -177,6 +177,9 @@
             bomb = maxBomb;
             return RESULT.ARSENAL;
         }
+        else {
+            return RESULT.OK;
+        }
     }
 
     function isItTreasure() {
@@ -185,11 +188,17 @@
             remove(getPlayer(), CELL.TREASURE);
             return RESULT.PICKUP_TREASURE;
         }
+        else {
+            return RESULT.OK;
+        }
     }
 
     function isItExit() {
         if (map[getPlayer()].contains(CELL.EXIT)) {
             proceedToNextLevel();
+        }
+        else {
+            return RESULT.OK;
         }
     }
 
@@ -292,7 +301,6 @@
         add(target, CELL.PLAYER);
 
         checkCell();
-        return RESULT.OK;
     }
 
     function remove(index, value) {

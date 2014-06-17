@@ -162,14 +162,14 @@
 
     function processTriggers() {
         //move to Arsenal
-        if (map[getPlayer()].contains(CELL.ARSENAL)){
+        if (map[getPlayer()].contains(CELL.ARSENAL)) {
             ammo = maxAmmo;
             bomb = maxBomb;
             return RESULT.ARSENAL;
         }
 
         //TODO: pickup treasure
-        if (map[getPlayer()].contains(CELL.TREASURE) ){
+        if (map[getPlayer()].contains(CELL.TREASURE)) {
             hasTreasure = true;
             remove(getPlayer(), CELL.TREASURE);
             return RESULT.PICKUP_TREASURE;
@@ -267,7 +267,7 @@
     function processMovement(target) {
         if (DEBUG) console.log("process move: " + getPlayer() + " -> " + target);
         var targetCell = cellAt(target);
-        if (hasTreasure == false && targetCell.contains(CELL.EXIT)) return RESULT.EXIT;
+        if (hasTreasure == false && targetCell.contains(CELL.EXIT)) return RESULT.CANT_EXIT;
         if (targetCell.contains(CELL.WALL) || targetCell.contains(CELL.OUTER_WALL)) return RESULT.WALL;
 
         remove(getPlayer(), CELL.PLAYER);

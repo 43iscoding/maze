@@ -2,6 +2,7 @@ Vitbuk:
 . Refactor: move processTriggers() to processAction()
 . Clear state (ammo/bombs/treasure) on level restart/change
 . Make a new level
+. (== false) and (+=1)
 
 Text-mode:
 . tab/auto-complete

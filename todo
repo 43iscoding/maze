@@ -1,9 +1,7 @@
 Vitbuk:
-. Inventory: Ammo, Bombs, Treasure
-. Trigger exit only when you have treasure
-. When shooting: remove ammo & bombs, if no bombs - print warning.
-. Replenish ammo/bomb when visiting Arsenal.
-
+. Refactor: move processTriggers() to processAction()
+. Clear state (ammo/bombs/treasure) on level restart/change
+. Make a new level
 
 Text-mode:
 . tab/auto-complete

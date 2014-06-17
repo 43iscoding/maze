@@ -171,43 +171,44 @@
         return actions.NONE;
     }
 
-    function isItArsenal() {
-        if (map[getPlayer()].contains(CELL.ARSENAL)) {
+    function checkCell(){
+        if (map[getPlayer()].contains(CELL.ARSENAL)){
             ammo = maxAmmo;
             bomb = maxBomb;
             return RESULT.ARSENAL;
         }
-        else {
-            return RESULT.OK;
-        }
-    }
-
-    function isItTreasure() {
-        if (map[getPlayer()].contains(CELL.TREASURE)) {
+        else if (map[getPlayer()].contains(CELL.TREASURE)) {
             hasTreasure = true;
             remove(getPlayer(), CELL.TREASURE);
             return RESULT.PICKUP_TREASURE;
         }
-        else {
-            return RESULT.OK;
-        }
-    }
-
-    function isItExit() {
-        if (map[getPlayer()].contains(CELL.EXIT)) {
+        else if (map[getPlayer()].contains(CELL.EXIT)) {
             proceedToNextLevel();
         }
         else {
             return RESULT.OK;
         }
     }
-
-    function checkCell(){
-        isItArsenal();
-        isItTreasure();
-        isItExit();
+/*
+    function checkCell2(cell){
+        switch (map[getPlayer()].contains(cell)){
+            case CELL.ARSENAL :
+                ammo = maxAmmo;
+                bomb = maxBomb;
+                return RESULT.ARSENAL;
+            case CELL.TREASURE :
+                hasTreasure = true;
+                remove(getPlayer(), CELL.TREASURE);
+                return RESULT.PICKUP_TREASURE;
+            case CELL.EXIT :
+                if (map[getPlayer()].contains(CELL.EXIT)) {
+                    proceedToNextLevel();
+                }
+            break;
+            default: return RESULT.OK;
+        }
     }
-
+*/
     function processAction() {
         if (DEBUG) {
             console.log("Process action: " + action);
@@ -300,7 +301,7 @@
         remove(getPlayer(), CELL.PLAYER);
         add(target, CELL.PLAYER);
 
-        checkCell();
+        return checkCell();
     }
 
     function remove(index, value) {

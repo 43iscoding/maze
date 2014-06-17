@@ -1,10 +1,10 @@
 (function(){
 
-    var currentLevelIndex = -1;
+    var currentLevelIndex = 0;
 
     var level1 =
         '****' +
-        '*P.*' +
+        '*PT*' +
         '*..E' +
         '****' ;
 
@@ -34,4 +34,7 @@
         currentLevelIndex = ++currentLevelIndex % levels.length;
         return levels[currentLevelIndex];
     };
+    window.getCurrentLevel = function() {
+        return levels[currentLevelIndex];
+    }
 }());

@@ -119,8 +119,14 @@
         input.onPressed(turn);
     };
 
-    function restart() {
+    function proceedToNextLevel() {
         var level = getNextLevel();
+        map = createLevel(level);
+        printMapToHTML();
+    }
+
+    function restart() {
+        var level = getCurrentLevel();
         map = createLevel(level);
         printMapToHTML();
     }
@@ -177,7 +183,7 @@
         //process exit
         //TODO: process exit only if treasure is in inventory
         if (map[getPlayer()].contains(CELL.EXIT)) {
-            restart();
+            proceedToNextLevel();
         }
     }
 

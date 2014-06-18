@@ -1,8 +1,5 @@
-Vitbuk:
-. Refactor: move processTriggers() to processAction()
-. Clear state (ammo/bombs/treasure) on level restart/change
-. Make a new level
-. (== false) and (+=1)
+VitBuk:
+. Show how much ammo/bomb player has
 
 Text-mode:
 . tab/auto-complete

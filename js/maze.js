@@ -177,38 +177,20 @@
             bomb = maxBomb;
             return RESULT.ARSENAL;
         }
-        else if (map[getPlayer()].contains(CELL.TREASURE)) {
+
+        if (map[getPlayer()].contains(CELL.TREASURE)) {
             hasTreasure = true;
             remove(getPlayer(), CELL.TREASURE);
             return RESULT.PICKUP_TREASURE;
         }
-        else if (map[getPlayer()].contains(CELL.EXIT)) {
+
+        if (map[getPlayer()].contains(CELL.EXIT)) {
             proceedToNextLevel();
         }
-        else {
-            return RESULT.OK;
-        }
+
+        return RESULT.OK;
     }
-/*
-    function checkCell2(cell){
-        switch (map[getPlayer()].contains(cell)){
-            case CELL.ARSENAL :
-                ammo = maxAmmo;
-                bomb = maxBomb;
-                return RESULT.ARSENAL;
-            case CELL.TREASURE :
-                hasTreasure = true;
-                remove(getPlayer(), CELL.TREASURE);
-                return RESULT.PICKUP_TREASURE;
-            case CELL.EXIT :
-                if (map[getPlayer()].contains(CELL.EXIT)) {
-                    proceedToNextLevel();
-                }
-            break;
-            default: return RESULT.OK;
-        }
-    }
-*/
+
     function processAction() {
         if (DEBUG) {
             console.log("Process action: " + action);
@@ -256,8 +238,6 @@
                 return RESULT.UNKNOWN_ACTION;
             }
         }
-
-        return RESULT.OK;
     }
 
     function processJump() {
@@ -312,14 +292,6 @@
         map[index].addObject(value);
     }
 
-    function printNeighbours(index) {
-        console.log("Neighbours: ");
-        console.log("  Up: " + cellAt(index - getMapSide()));
-        console.log("  Down: " + cellAt(index + getMapSide()));
-        console.log("  Left: " + cellAt(index - 1));
-        console.log("  Right: " + cellAt(index + 1));
-    }
-
     function getXY(index) {
         return {x: index % getMapSide(), y: Math.floor(index / getMapSide())};
     }
@@ -354,6 +326,8 @@
                 mapDiv.innerHTML += '\n';
             }
         }
+        var ammoDiv = document.getElementById('ammo');
+        ammoDiv.innerHTML = ammo;
     }
 
 

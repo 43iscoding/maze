@@ -48,6 +48,10 @@
         CANT_EXIT: "CANT_EXIT"
     };
 
+
+    window.MAX_AMMO = 3;
+    window.MAX_BOMBS = 1;
+
     window.PIXEL_RATIO = function () {
         var ctx = document.getElementById("canvas").getContext("2d"),
             dpr = window.devicePixelRatio || 1,

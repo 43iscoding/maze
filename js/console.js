@@ -27,10 +27,10 @@
         };
         dict[RESULT.PICKUP_TREASURE] = {
             en: ["You have found a treasure!"]
-        }
+        };
         dict [RESULT.CANT_EXIT] = {
             en: ["You can`t exit maze without treasure"]
-        }
+        };
         dict[RESULT.UNKNOWN_ACTION] = {
             en: ["Unknown action: What are you trying to do?", "Unknown action - You should not see this message"]
         };

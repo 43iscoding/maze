@@ -326,8 +326,6 @@
                 mapDiv.innerHTML += '\n';
             }
         }
-        var ammoDiv = document.getElementById('ammo');
-        ammoDiv.innerHTML = ammo;
     }
 
 

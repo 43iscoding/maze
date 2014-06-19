@@ -325,6 +325,7 @@
                 mapDiv.innerHTML += '\n';
             }
         }
+        //inventory
         mapDiv.innerHTML += '\n';
         mapDiv.innerHTML += "Ammo: " + ammo;
         mapDiv.innerHTML += '\n';

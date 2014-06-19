@@ -52,6 +52,9 @@
     window.MAX_AMMO = 3;
     window.MAX_BOMBS = 1;
 
+    window.PLAYERS_COLORS = ['#279C38', '#AD3832', '#BFBA71', '#657B8A', '#C75FC5', '#E38340'];
+    window.DEFAULT_COLOR = '#77B';
+
     window.PIXEL_RATIO = function () {
         var ctx = document.getElementById("canvas").getContext("2d"),
             dpr = window.devicePixelRatio || 1,

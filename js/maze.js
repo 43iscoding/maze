@@ -194,7 +194,6 @@
     function startLevel(level) {
         map = createLevel(level);
         printMapToHTML();
-        currentPlayer = currentPlayer == players.length - 1 ? 0 : currentPlayer + 1;
     }
 
     function turn(key) {
@@ -204,6 +203,7 @@
         if (DEBUG) console.log(result);
         mazeConsole.print(result);
         printMapToHTML();
+        currentPlayer = currentPlayer == players.length - 1 ? 0 : currentPlayer + 1;
     }
 
     function processInput(key) {
@@ -382,6 +382,11 @@
     function printMapToHTML() {
         var mapDiv = document.getElementById('mapDiv');
         mapDiv.style.width = "15px";
+        if (players.length > 1) {
+            mapDiv.style.color = PLAYERS_COLORS[currentPlayer];
+        } else {
+            mapDiv.style.color = DEFAULT_COLOR;
+        }
         mapDiv.innerHTML = "";
         for (var i = 0; i < map.length; i++) {
             mapDiv.innerHTML += map[i].getValue();

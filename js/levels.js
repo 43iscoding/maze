@@ -36,15 +36,51 @@
         '*O^T.^O*' +
         '********' ;
 
+    var arena1 =
+        '****' +
+        '*P.E' +
+        '*TP*' +
+        '****' ;
+
+    var arena2 =
+        '*******' +
+        '*....O*' +
+        '*.P.***' +
+        '*.**OTE' +
+        '*.P.***' +
+        '*....O*' +
+        '*******' ;
+
+    var arena3 =
+        '*****E****' +
+        '*P..O...P*' +
+        '*..*.A*..*' +
+        '*.**.***.*' +
+        'E.A*.T..O*' +
+        '*O..H.*A.E' +
+        '*.***.**.*' +
+        '*..*A.*..*' +
+        '*P...O..P*' +
+        '****E*****' ;
+
+
     window.levels = [level1, level2, level3, level4];
+    window.arenas = [arena1, arena2, arena3];
+
+    window.MULTIPLAYER = false;
+
     window.getLevelIndex = function() {
         return currentLevelIndex;
     };
     window.getNextLevel = function() {
-        currentLevelIndex = ++currentLevelIndex % levels.length;
-        return levels[currentLevelIndex];
+        currentLevelIndex = ++currentLevelIndex % getLevels().length;
+        return getLevels()[currentLevelIndex];
     };
     window.getCurrentLevel = function() {
-        return levels[currentLevelIndex];
+        return getLevels()[currentLevelIndex];
+    };
+
+    function getLevels() {
+        return MULTIPLAYER ? arenas : levels;
     }
 }());

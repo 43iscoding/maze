@@ -1,5 +1,4 @@
 (function(){
-
     var action = actions.NONE;
 
     var DEBUG = true;
@@ -326,7 +325,10 @@
                 mapDiv.innerHTML += '\n';
             }
         }
+        mapDiv.innerHTML += '\n';
+        mapDiv.innerHTML += "Ammo: " + ammo;
+        mapDiv.innerHTML += '\n';
+        mapDiv.innerHTML += "Bomb: " + bomb;
     }
-
 
 }());

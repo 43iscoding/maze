@@ -6,7 +6,7 @@
     var hasTreasure = false;
     var maxAmmo = 2;
     var maxBomb = 1;
-    var ammo = maxAmmo;
+    var ammo = 0;
     var bomb = maxBomb;
 
     function Cell(index, type) {
@@ -325,11 +325,7 @@
                 mapDiv.innerHTML += '\n';
             }
         }
-        //inventory
-        mapDiv.innerHTML += '\n';
-        mapDiv.innerHTML += "Ammo: " + ammo;
-        mapDiv.innerHTML += '\n';
-        mapDiv.innerHTML += "Bomb: " + bomb;
     }
+
 
 }());

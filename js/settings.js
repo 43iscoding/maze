@@ -46,19 +46,28 @@
         JUMP: 'JUMP'
     };
 
+    window.DIRECTION = {
+        UP: 'UP',
+        DOWN: 'DOWN',
+        LEFT: 'LEFT',
+        RIGHT: 'RIGHT'
+    };
+
     window.RESULT = {
         OK: 'OK',
         WALL: 'WALL',
         UNKNOWN_ACTION: 'UNKNOWN_ACTION',
         NO_AMMO: 'NO_AMMO',
         NO_BOMB: 'NO_BOMB',
+        BOMB_SUCCESS: "BOMB_SUCCESS",
+        BOMB_NO_WALL: "BOMB_NO_WALL",
         NO_PORTAL: 'NO_PORTAL',
         JUMP: "JUMP",
         ARSENAL: "ARSENAL",
         PICKUP_TREASURE: "PICKUP_TREASURE",
         CANT_EXIT: "CANT_EXIT",
-        SHOOT_MODIFIER: "MOD_SHOOT",
-        BOMB_MODIFIER: "MOD_BOMB"
+        SHOOT_MODIFIER: "SHOOT_MODIFIER",
+        BOMB_MODIFIER: "BOMB_MODIFIER"
     };
 
 

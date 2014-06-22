@@ -43,6 +43,12 @@
         dict[RESULT.CANCEL] = {
             en: ["Action cancelled.", "Ok, let's not do that", "No? As you wish"]
         };
+        dict[RESULT.BOMB_NO_WALL] = {
+            en: ["You destroyed nothing.", "Wow, what a waste.", "You did not blew any walls"]
+        };
+        dict[RESULT.BOMB_SUCCESS] = {
+            en: ["You have destroyed a wall.", "Wall has been demolished.", "Boom! Poor wall..."]
+        };
         return dict;
     }
 

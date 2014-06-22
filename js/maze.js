@@ -49,7 +49,7 @@
         this.index = index;
         this.players = [];
         this.objects = [ type ];
-        if (type == OBJECT.PLAYER || type == OBJECT.TREASURE) {
+        if (type == OBJECT.PLAYER || type == OBJECT.TREASURE || type == OBJECT.WALL) {
             this.objects.push(OBJECT.EMPTY);
         }
     }
@@ -268,6 +268,42 @@
         return RESULT.OK;
     }
 
+    function processShoot(direction) {
+        if (!getPlayer().hasAmmo()){
+            return RESULT.NO_AMMO;
+        }
+
+        getPlayer().decreaseAmmo();
+        //scan line
+        return RESULT.OK;
+    }
+
+    function processBomb(direction) {
+        if (!getPlayer().hasBomb()){
+            return RESULT.NO_BOMB;
+        }
+        getPlayer().decreaseBombs();
+        var target = getNeighbour(getPlayerIndex(), direction);
+        var targetCell = map[target];
+        if (targetCell.contains(OBJECT.WALL)) {
+            remove(target, OBJECT.WALL);
+            return RESULT.BOMB_SUCCESS;
+        }
+        return RESULT.BOMB_NO_WALL;
+    }
+
+    function getNeighbour(index, direction) {
+        switch (direction) {
+            case DIRECTION.UP: return index - getMapSide();
+            case DIRECTION.DOWN: return index + getMapSide();
+            case DIRECTION.LEFT: return index - 1;
+            case DIRECTION.RIGHT: return index + 1;
+            default: {
+                console.log("Unknown direction: " + direction);
+            }
+        }
+    }
+
     function processAction() {
         if (DEBUG) {
             console.log("Process action: " + action);
@@ -278,16 +314,16 @@
                 return RESULT.CANCEL;
             }
             case actions.MOVE_UP: {
-                return processMovement(getPlayerIndex() - getMapSide());
+                return processMovement(DIRECTION.UP);
             }
             case actions.MOVE_DOWN: {
-                return processMovement(getPlayerIndex() + getMapSide());
+                return processMovement(DIRECTION.DOWN);
             }
             case actions.MOVE_LEFT: {
-                return processMovement(getPlayerIndex() - 1);
+                return processMovement(DIRECTION.LEFT);
             }
             case actions.MOVE_RIGHT: {
-                return processMovement(getPlayerIndex() + 1);
+                return processMovement(DIRECTION.RIGHT);
             }
             case actions.HOLD: {
                 return RESULT.OK;
@@ -300,32 +336,24 @@
                 modifier = actions.BOMB + "_";
                return RESULT.BOMB_MODIFIER;
             }
-            case actions.SHOOT_UP:
-            case actions.SHOOT_DOWN:
-            case actions.SHOOT_LEFT:
-            case actions.SHOOT_RIGHT:
+            case actions.SHOOT_UP: return processShoot(DIRECTION.UP);
+            case actions.SHOOT_DOWN: return processShoot(DIRECTION.DOWN);
+            case actions.SHOOT_LEFT: return processShoot(DIRECTION.LEFT);
+            case actions.SHOOT_RIGHT: return processShoot(DIRECTION.RIGHT);
             case actions.SHOOT: {
-                if (getPlayer().hasAmmo()){
-                    getPlayer().decreaseAmmo();
-                    return RESULT.OK;
-                }
-                else {
-                    return RESULT.NO_AMMO;
-                }
+                console.log("actions.SHOOT no longer supported");
+                return RESULT.UNKNOWN_ACTION;
             }
-            case actions.BOMB_UP:
-            case actions.BOMB_DOWN:
-            case actions.BOMB_LEFT:
-            case actions.BOMB_RIGHT:
+
+            case actions.BOMB_UP: return processBomb(DIRECTION.UP);
+            case actions.BOMB_DOWN: return processBomb(DIRECTION.DOWN);
+            case actions.BOMB_LEFT: return processBomb(DIRECTION.LEFT);
+            case actions.BOMB_RIGHT: return processBomb(DIRECTION.RIGHT);
             case actions.BOMB: {
-                if (getPlayer().hasBomb()){
-                    getPlayer().decreaseBombs();
-                    return RESULT.OK;
-                }
-                else {
-                    return RESULT.NO_BOMB;
-                }
+                console.log("actions.BOMB no longer supported");
+                return RESULT.UNKNOWN_ACTION;
             }
+
             case actions.JUMP: {
                 return processJump();
             }
@@ -367,7 +395,8 @@
         return -1;
     }
 
-    function processMovement(target) {
+    function processMovement(direction) {
+        var target = getNeighbour(getPlayerIndex(), direction);
         if (DEBUG) console.log("process move: " + getPlayerIndex() + " -> " + target);
         var targetCell = cellAt(target);
         if (!getPlayer().hasTreasure() && targetCell.contains(OBJECT.EXIT)) return RESULT.CANT_EXIT;

@@ -25,13 +25,24 @@
 
     window.actions = {
         NONE: 'NONE',
+        CANCEL: 'CANCEL',
         MOVE_UP: 'UP',
         MOVE_DOWN: 'DOWN',
         MOVE_LEFT: 'LEFT',
         MOVE_RIGHT: 'RIGHT',
         HOLD: 'HOLD',
         SHOOT: 'SHOOT',
+            SHOOT_MODIFIER: 'SHOOT_MOD',
+            SHOOT_UP: 'SHOOT_UP',
+            SHOOT_DOWN: 'SHOOT_DOWN',
+            SHOOT_LEFT: 'SHOOT_LEFT',
+            SHOOT_RIGHT: 'SHOOT_RIGHT',
         BOMB: 'BOMB',
+            BOMB_MODIFIER: 'BOMB_MOD',
+            BOMB_UP: 'BOMB_UP',
+            BOMB_DOWN: 'BOMB_DOWN',
+            BOMB_LEFT: 'BOMB_LEFT',
+            BOMB_RIGHT: 'BOMB_RIGHT',
         JUMP: 'JUMP'
     };
 
@@ -45,7 +56,9 @@
         JUMP: "JUMP",
         ARSENAL: "ARSENAL",
         PICKUP_TREASURE: "PICKUP_TREASURE",
-        CANT_EXIT: "CANT_EXIT"
+        CANT_EXIT: "CANT_EXIT",
+        SHOOT_MODIFIER: "MOD_SHOOT",
+        BOMB_MODIFIER: "MOD_BOMB"
     };
 
 

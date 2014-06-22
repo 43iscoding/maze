@@ -28,11 +28,20 @@
         dict[RESULT.PICKUP_TREASURE] = {
             en: ["You have found a treasure!"]
         };
-        dict [RESULT.CANT_EXIT] = {
+        dict[RESULT.CANT_EXIT] = {
             en: ["You can`t exit maze without treasure"]
         };
         dict[RESULT.UNKNOWN_ACTION] = {
             en: ["Unknown action: What are you trying to do?", "Unknown action - You should not see this message"]
+        };
+        dict[RESULT.SHOOT_MODIFIER] = {
+            en: ["Choose direction where to shoot!", "So where do we shoot at?"]
+        };
+        dict[RESULT.BOMB_MODIFIER] = {
+            en: ["Throw a bomb.. where?", "Throwing a bomb to.. ?"]
+        };
+        dict[RESULT.CANCEL] = {
+            en: ["Action cancelled.", "Ok, let's not do that", "No? As you wish"]
         };
         return dict;
     }

@@ -196,6 +196,8 @@
         printMapToHTML();
     }
 
+    var modifier = null;
+
     function turn(key) {
         action = processInput(key);
         if (action == actions.NONE) return;
@@ -203,10 +205,26 @@
         if (DEBUG) console.log(result);
         mazeConsole.print(result);
         printMapToHTML();
-        currentPlayer = currentPlayer == players.length - 1 ? 0 : currentPlayer + 1;
+        if (modifier == null) {
+            currentPlayer = currentPlayer == players.length - 1 ? 0 : currentPlayer + 1;
+        }
     }
 
     function processInput(key) {
+        if (modifier != null) {
+            var modifiedAction = actions.CANCEL;
+            if (key == 'UP' || key == 'W') {
+                modifiedAction = modifier + actions.MOVE_UP;
+            } else if (key == 'DOWN' || key == 'S') {
+                modifiedAction = modifier + actions.MOVE_DOWN;
+            } else if (key == 'RIGHT' || key == 'D') {
+                modifiedAction = modifier + actions.MOVE_RIGHT;
+            } else if (key == 'LEFT' || key == 'A') {
+                modifiedAction = modifier + actions.MOVE_LEFT;
+            }
+            modifier = null;
+            return modifiedAction;
+        }
         if (key == 'UP' || key == 'W') {
             return actions.MOVE_UP;
         } else if (key == 'DOWN' || key == 'S') {
@@ -219,9 +237,9 @@
             restart();
             return actions.NONE;
         } else if (key == 'SPACE') {
-            return actions.SHOOT;
+            return actions.SHOOT_MODIFIER;
         } else if (key == 'B') {
-            return actions.BOMB;
+            return actions.BOMB_MODIFIER;
         } else if (key == 'J') {
             return actions.JUMP;
         } else if (key == 'H') {
@@ -256,6 +274,9 @@
         }
 
         switch (action) {
+            case actions.CANCEL: {
+                return RESULT.CANCEL;
+            }
             case actions.MOVE_UP: {
                 return processMovement(getPlayerIndex() - getMapSide());
             }
@@ -271,6 +292,18 @@
             case actions.HOLD: {
                 return RESULT.OK;
             }
+            case actions.SHOOT_MODIFIER: {
+                modifier = actions.SHOOT + "_";
+                return RESULT.SHOOT_MODIFIER;
+            }
+            case actions.BOMB_MODIFIER: {
+                modifier = actions.BOMB + "_";
+               return RESULT.BOMB_MODIFIER;
+            }
+            case actions.SHOOT_UP:
+            case actions.SHOOT_DOWN:
+            case actions.SHOOT_LEFT:
+            case actions.SHOOT_RIGHT:
             case actions.SHOOT: {
                 if (getPlayer().hasAmmo()){
                     getPlayer().decreaseAmmo();
@@ -280,6 +313,10 @@
                     return RESULT.NO_AMMO;
                 }
             }
+            case actions.BOMB_UP:
+            case actions.BOMB_DOWN:
+            case actions.BOMB_LEFT:
+            case actions.BOMB_RIGHT:
             case actions.BOMB: {
                 if (getPlayer().hasBomb()){
                     getPlayer().decreaseBombs();

@@ -1,19 +1,20 @@
 VitBuk:
 . Show how much ammo/bomb player has
 
+debug buttons for mode change - single/multiplayer
+
 Text-mode:
 . tab/auto-complete
 . up/history
 . action synonyms
+. typewriter effect
 
 Level generation:
 . maze generator
 . OR templates
 
 . more responses
-. move triggers to processAction()
 . mouse-mode
-. multiple players (configurable from 1 to 4)
 . action history -> back/rewind/replay
 . save/load
 . music

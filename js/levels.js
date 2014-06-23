@@ -72,6 +72,9 @@
     window.getLevelIndex = function() {
         return currentLevelIndex;
     };
+    window.getLevelName = function() {
+        return MULTIPLAYER ? "arena" + getLevelIndex() : "level" + getLevelIndex();
+    };
     window.getNextLevel = function() {
         currentLevelIndex = ++currentLevelIndex % getLevels().length;
         return getLevels()[currentLevelIndex];

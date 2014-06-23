@@ -82,10 +82,8 @@
             });
             return found;
         },
-        getPlayer : function(id) {
-            for (var i = 0; i < this.players.length; i++) {
-                if (this.players[i].id == id) return this.players[i];
-            }
+        listPlayers : function() {
+            return this.players;
         },
         getValue : function() {
             if (this.players.length > 0) return OBJECT.PLAYER;
@@ -182,6 +180,7 @@
         restart();
         input.onPressed(turn);
     };
+    window.processCommand = processCommand;
 
     function proceedToNextLevel() {
         startLevel(getNextLevel());
@@ -206,8 +205,12 @@
         mazeConsole.print(result);
         printMapToHTML();
         if (modifier == null) {
-            currentPlayer = currentPlayer == players.length - 1 ? 0 : currentPlayer + 1;
+            currentPlayer = currentPlayer < players.length - 1 ? currentPlayer + 1 : 0;
         }
+    }
+
+    function processCommand(command) {
+        //TODO: Button support
     }
 
     function processInput(key) {
@@ -274,8 +277,28 @@
         }
 
         getPlayer().decreaseAmmo();
-        //scan line
-        return RESULT.OK;
+        var next = getNeighbour(getPlayerIndex(), direction);
+        while (!map[next].contains(OBJECT.WALL)
+            && !map[next].contains(OBJECT.OUTER_WALL)
+            && !map[next].contains(OBJECT.PLAYER)) {
+            next = getNeighbour(next, direction);
+        }
+        if (map[next].contains(OBJECT.PLAYER)) {
+            var eliminated = false;
+            map[next].listPlayers().forEach(function(player) {
+                if (getHospitalIndex() != -1) {
+                    movePlayer(player, getHospitalIndex());
+                } else {
+                    //remove player completely
+                    remove(player.index, player);
+                    players.splice(players.indexOf(player), 1);
+                    eliminated = true;
+                }
+            });
+            return eliminated ? RESULT.SHOOT_ELIMINATED : RESULT.SHOOT_SUCCESS;
+        } else {
+            return RESULT.SHOOT_WALL;
+        }
     }
 
     function processBomb(direction) {
@@ -284,8 +307,7 @@
         }
         getPlayer().decreaseBombs();
         var target = getNeighbour(getPlayerIndex(), direction);
-        var targetCell = map[target];
-        if (targetCell.contains(OBJECT.WALL)) {
+        if (map[target].contains(OBJECT.WALL)) {
             remove(target, OBJECT.WALL);
             return RESULT.BOMB_SUCCESS;
         }
@@ -391,7 +413,7 @@
         }
 
         var pos = getXY(current);
-        console.log("Could not find destination portal for (" + pos.x + "," + pos.y + "). Level index: " + getLevelIndex());
+        console.log("Could not find destination portal for (" + pos.x + "," + pos.y + ") in " + getLevelName());
         return -1;
     }
 
@@ -416,7 +438,7 @@
     }
 
     function movePlayer(player, to) {
-        remove(getPlayerIndex(), player);
+        remove(player.index, player);
         add(to, player);
         player.index = to;
     }
@@ -443,6 +465,14 @@
 
     function getPlayer() {
         return players[currentPlayer];
+    }
+
+    function getHospitalIndex() {
+        //If there is no hospital in map, killed player will be eliminated
+        for (var i = 0; i < map.length; i++) {
+            if (map[i].contains(OBJECT.HOSPITAL)) return i;
+        }
+        return -1;
     }
 
     function printMapToHTML() {

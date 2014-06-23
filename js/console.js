@@ -49,6 +49,15 @@
         dict[RESULT.BOMB_SUCCESS] = {
             en: ["You have destroyed a wall.", "Wall has been demolished.", "Boom! Poor wall..."]
         };
+        dict[RESULT.SHOOT_SUCCESS] = {
+            en: ["You have killed an opponent.", "Headshot!", "Bingo! You killed someone"]
+        };
+        dict[RESULT.SHOOT_ELIMINATED] = {
+            en: ["A player has been eliminated.", "Ouch! Someone will NOT respawn now"]
+        };
+        dict[RESULT.SHOOT_WALL] = {
+            en: ["Bullet hit no one...", "Miss", "Right... in the wall"]
+        };
         return dict;
     }
 

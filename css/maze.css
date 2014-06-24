@@ -75,7 +75,7 @@ html, body {
 
 .mazeText {
     display: block;
-    position: absolute;
+    position: static;
 
     font: 1.6em Monospace;
     color: #77B;
@@ -96,12 +96,11 @@ html, body {
 
     margin-left: -8px;
 }
-
+/*
 #inventoryDiv {
     display: block;
-    position: static;
 }
-
+*/
 .overlayKey {
     color: #373;
 }

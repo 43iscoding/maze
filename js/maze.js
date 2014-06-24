@@ -493,14 +493,14 @@
             }
         }
     }
-
+/* wtf ahtung omg
     function printInventoryToHTML() {
         var inventoryDiv = document.getElementById ('inventoryDiv');
-        inventoryDiv.innerHTML += "Ammo: " + ammo;
+        inventoryDiv.innerHTML += "Ammo: " + getPlayer().ammo;
         inventoryDiv.innerHTML += '\n';
-        inventoryDiv.innerHTML += "Bomb: " + bomb;
+        inventoryDiv.innerHTML += "Bomb: " + getPlayer().bombs;
 
     }
-
+*/
 
 }());

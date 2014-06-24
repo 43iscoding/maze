@@ -7,7 +7,6 @@ Text-mode:
 . tab/auto-complete
 . up/history
 . action synonyms
-. typewriter effect
 
 Level generation:
 . maze generator

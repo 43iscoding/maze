@@ -181,6 +181,13 @@
         input.onPressed(turn);
     };
     window.processCommand = processCommand;
+    window.getColor = function() {
+        if (players.length > 1) {
+            return PLAYERS_COLORS[currentPlayer];
+        } else {
+            return DEFAULT_COLOR;
+        }
+    };
 
     function proceedToNextLevel() {
         startLevel(getNextLevel());
@@ -203,11 +210,11 @@
         if (action == actions.NONE) return;
         var result = processAction(action);
         if (DEBUG) console.log(result);
-        mazeConsole.print(result);
-        printMapToHTML();
         if (modifier == null) {
             currentPlayer = currentPlayer < players.length - 1 ? currentPlayer + 1 : 0;
         }
+        mazeConsole.print(result);
+        printMapToHTML();
         printInventoryToHTML();
     }
 
@@ -480,11 +487,7 @@
     function printMapToHTML() {
         var mapDiv = document.getElementById('mapDiv');
         mapDiv.style.width = "15px";
-        if (players.length > 1) {
-            mapDiv.style.color = PLAYERS_COLORS[currentPlayer];
-        } else {
-            mapDiv.style.color = DEFAULT_COLOR;
-        }
+        mapDiv.style.color = getColor();
         mapDiv.innerHTML = "";
         for (var i = 0; i < map.length; i++) {
             mapDiv.innerHTML += map[i].getValue();
@@ -496,9 +499,11 @@
 
     function printInventoryToHTML() {
         var inventoryDiv = document.getElementById ('inventoryDiv');
-        inventoryDiv.innerHTML += "Ammo: " + ammo;
+        inventoryDiv.style.color = getColor();
+        inventoryDiv.innerHTML = '</p>';
+        inventoryDiv.innerHTML += "Ammo: " + getPlayer().ammo;
         inventoryDiv.innerHTML += '\n';
-        inventoryDiv.innerHTML += "Bomb: " + bomb;
+        inventoryDiv.innerHTML += "Bomb: " + getPlayer().bombs;
 
     }
 

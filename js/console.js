@@ -84,6 +84,7 @@
 
     function print(key) {
         var output = document.getElementById('consoleOutput');
+        output.style.color = getColor();
         output.innerHTML = get(key);
     }
 

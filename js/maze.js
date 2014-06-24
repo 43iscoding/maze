@@ -193,6 +193,7 @@
     function startLevel(level) {
         map = createLevel(level);
         printMapToHTML();
+        printInventoryToHTML();
     }
 
     var modifier = null;
@@ -207,6 +208,7 @@
         if (modifier == null) {
             currentPlayer = currentPlayer < players.length - 1 ? currentPlayer + 1 : 0;
         }
+        printInventoryToHTML();
     }
 
     function processCommand(command) {
@@ -490,6 +492,14 @@
                 mapDiv.innerHTML += '\n';
             }
         }
+    }
+
+    function printInventoryToHTML() {
+        var inventoryDiv = document.getElementById ('inventoryDiv');
+        inventoryDiv.innerHTML += "Ammo: " + ammo;
+        inventoryDiv.innerHTML += '\n';
+        inventoryDiv.innerHTML += "Bomb: " + bomb;
+
     }
 
 

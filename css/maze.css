@@ -96,11 +96,12 @@ html, body {
 
     margin-left: -8px;
 }
-/*
-#inventoryDiv {
 
+#inventoryDiv {
+    display: block;
+    position: static;
 }
-*/
+
 .overlayKey {
     color: #373;
 }

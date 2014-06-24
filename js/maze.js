@@ -206,6 +206,15 @@
     var modifier = null;
 
     function turn(key) {
+        switch (gameMode) {
+            case GAME_MODE.KEYBOARD: return processKeyboard(key);
+            case GAME_MODE.TEXT: return mazeConsole.input(key);
+            case GAME_MODE.MOUSE: console.log("Mouse mode not supported yet"); break;
+            default: console.log("Unknown game mode: " + gameMode);
+        }
+    }
+
+    function processKeyboard(key) {
         action = processInput(key);
         if (action == actions.NONE) return;
         var result = processAction(action);
@@ -219,7 +228,14 @@
     }
 
     function processCommand(command) {
-        //TODO: Button support
+        var result = processAction(command);
+        if (DEBUG) console.log(result);
+        if (modifier == null) {
+            currentPlayer = currentPlayer < players.length - 1 ? currentPlayer + 1 : 0;
+        }
+        mazeConsole.print(result);
+        printMapToHTML();
+        printInventoryToHTML();
     }
 
     function processInput(key) {
@@ -335,7 +351,7 @@
         }
     }
 
-    function processAction() {
+    function processAction(action) {
         if (DEBUG) {
             console.log("Process action: " + action);
         }
@@ -486,7 +502,7 @@
 
     function printMapToHTML() {
         var mapDiv = document.getElementById('mapDiv');
-        mapDiv.style.width = "15px";
+        mapDiv.style.width = "0";
         mapDiv.style.color = getColor();
         mapDiv.innerHTML = "";
         for (var i = 0; i < map.length; i++) {
@@ -499,12 +515,14 @@
 
     function printInventoryToHTML() {
         var inventoryDiv = document.getElementById ('inventoryDiv');
+        inventoryDiv.style.width = "0";
         inventoryDiv.style.color = getColor();
         inventoryDiv.innerHTML = '</p>';
-        inventoryDiv.innerHTML += "Ammo: " + getPlayer().ammo;
-        inventoryDiv.innerHTML += '\n';
-        inventoryDiv.innerHTML += "Bomb: " + getPlayer().bombs;
-
+        inventoryDiv.innerHTML += "Ammo:" + getPlayer().ammo + "\n";
+        inventoryDiv.innerHTML += "Bomb:" + getPlayer().bombs + "\n";
+        if (getPlayer().hasTreasure()) {
+            inventoryDiv.innerHTML += "Treasure";
+        }
     }
 
 

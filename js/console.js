@@ -32,7 +32,7 @@
             en: ["You can`t exit maze without treasure"]
         };
         dict[RESULT.UNKNOWN_ACTION] = {
-            en: ["Unknown action: What are you trying to do?", "Unknown action - You should not see this message"]
+            en: ["What are you trying to do?", "Unknown action"]
         };
         dict[RESULT.SHOOT_MODIFIER] = {
             en: ["Choose direction where to shoot!", "So where do we shoot at?"]

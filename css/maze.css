@@ -75,18 +75,19 @@ html, body {
 
 .mazeText {
     display: block;
-    position: static;
 
     font: 1.6em Monospace;
     color: #77B;
 }
 
-#consoleOutput {
-    top: 85%;
+#consoleInput {
+    position: absolute;
+    top: 60%;
 }
 
-#consoleInput {
-    top: 60%;
+#consoleOutput {
+    position: absolute;
+    top: 85%;
 }
 
 #mail {
@@ -96,11 +97,7 @@ html, body {
 
     margin-left: -8px;
 }
-/*
-#inventoryDiv {
-    display: block;
-}
-*/
+
 .overlayKey {
     color: #373;
 }

@@ -1,20 +1,25 @@
-VitBuk:
-. Show how much ammo/bomb player has
-
-debug buttons for mode change - single/multiplayer
+Gameplay:
+. movement result should print cell type
+. add swamps
+. add monsters (move randomly each turn)
+. walls should be between cells, not as separate cell.
 
 Text-mode:
 . tab/auto-complete
 . up/history
 . action synonyms
-. typewriter effect
 
 Level generation:
 . maze generator
 . OR templates
 
+Refactor:
+. Multiline DIVs with <ul> & <li>
+
+Misc:
 . more responses
 . mouse-mode
 . action history -> back/rewind/replay
 . save/load
 . music
+. debug buttons for mode change - single/multiplayer & text/keyboard

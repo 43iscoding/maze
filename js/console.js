@@ -32,7 +32,7 @@
             en: ["You can`t exit maze without treasure"]
         };
         dict[RESULT.UNKNOWN_ACTION] = {
-            en: ["Unknown action: What are you trying to do?", "Unknown action - You should not see this message"]
+            en: ["What are you trying to do?", "Unknown action"]
         };
         dict[RESULT.SHOOT_MODIFIER] = {
             en: ["Choose direction where to shoot!", "So where do we shoot at?"]
@@ -82,10 +82,32 @@
         }
     }
 
+    var typeWriter;
+
     function print(key) {
         var output = document.getElementById('consoleOutput');
-        output.innerHTML = get(key);
+        output.style.color = getColor();
+        if (typeWriter) typeWriter.clear();
+        typeWriter = new Typewriter(output, get(key));
     }
+
+    function Typewriter(element, text) {
+        var delay = [30, 60];
+        element.innerHTML = '';
+        var write = function() {
+            if (text.length == 0) return;
+            element.innerHTML += text[0];
+            text = text.substring(1);
+        };
+
+        this.interval = setInterval(write, delay[0] + Math.random() * (delay[1] - delay[0]));
+    }
+
+    Typewriter.prototype = {
+        clear : function() {
+            clearInterval(this.interval);
+        }
+    };
 
     function get(key) {
         if (dictionary[key] == undefined) {

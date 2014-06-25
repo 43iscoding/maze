@@ -13,6 +13,9 @@ Level generation:
 . maze generator
 . OR templates
 
+Refactor:
+. Multiline DIVs with <ul> & <li>
+
 Misc:
 . more responses
 . mouse-mode

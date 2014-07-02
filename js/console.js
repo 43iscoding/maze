@@ -58,6 +58,12 @@
         dict[RESULT.SHOOT_WALL] = {
             en: ["Bullet hit no one...", "Miss", "Right... in the wall"]
         };
+        dict[RESULT.FELL_INTO_SWAMP] = {
+            en: ["You fell into swamp! You will skip your next turn."]
+        };
+        dict[RESULT.STUCK_IN_SWAMP] = {
+            en: ["You stuck in swamp! Skip turn."]
+        };
         return dict;
     }
 

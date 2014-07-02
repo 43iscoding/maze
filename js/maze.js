@@ -3,12 +3,15 @@
 
     var DEBUG = false;
 
+    //var fellIntoSwamp = false;
+
     function Player(id, index) {
         this._id = id;
         this._index = index;
         this.ammo = MAX_AMMO;
         this.bombs = MAX_BOMBS;
         this.treasure = false;
+        this.swamp = false;
     }
 
     Player.prototype = {
@@ -35,6 +38,15 @@
         },
         hasTreasure : function() {
             return this.treasure;
+        },
+        stuckInSwamp : function() {
+            return this.swamp;
+        },
+        fellIntoSwamp : function(){
+            this.swamp = true;
+        },
+        outOfTheSwamp : function(){
+            this.swamp = false;
         },
         pickUpTreasure : function() {
             this.treasure = true;
@@ -114,6 +126,7 @@
      * @ - Out of bounds
      * ~ - Bullet
      * T - Treasure
+     * S - Swamp
      */
 
     window.OBJECT = {
@@ -128,7 +141,8 @@
         OUT_OF_BOUNDS : '@',
         BULLET: '~',
         TREASURE: 'T',
-        PORTAL: 'O'
+        PORTAL: 'O',
+        SWAMP: 'S'
     };
 
     function getPriority(object) {
@@ -139,6 +153,7 @@
             case OBJECT.ARSENAL:
             case OBJECT.HOSPITAL:
             case OBJECT.TREASURE:
+            case OBJECT.SWAMP:
             case OBJECT.EXIT: return 3;
             case OBJECT.OUTER_WALL: return 2;
             case OBJECT.WALL:
@@ -278,6 +293,10 @@
     }
 
     function checkCell(){
+        if (map[getPlayerIndex()].contains(OBJECT.SWAMP)) {
+            getPlayer().fellIntoSwamp();
+            return RESULT.FELL_INTO_SWAMP;
+        }
         if (map[getPlayerIndex()].contains(OBJECT.ARSENAL)){
             getPlayer().replenishAmmo();
             return RESULT.ARSENAL;
@@ -443,6 +462,10 @@
     }
 
     function processMovement(direction) {
+        if (getPlayer().stuckInSwamp()) {
+            getPlayer().outOfTheSwamp();
+            return RESULT.STUCK_IN_SWAMP;
+        }
         var target = getNeighbour(getPlayerIndex(), direction);
         if (DEBUG) console.log("process move: " + getPlayerIndex() + " -> " + target);
         var targetCell = cellAt(target);

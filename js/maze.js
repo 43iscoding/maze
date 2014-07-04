@@ -3,8 +3,6 @@
 
     var DEBUG = false;
 
-    //var fellIntoSwamp = false;
-
     function Player(id, index) {
         this._id = id;
         this._index = index;
@@ -297,6 +295,7 @@
             getPlayer().fellIntoSwamp();
             return RESULT.FELL_INTO_SWAMP;
         }
+
         if (map[getPlayerIndex()].contains(OBJECT.ARSENAL)){
             getPlayer().replenishAmmo();
             return RESULT.ARSENAL;
@@ -310,9 +309,15 @@
 
         if (map[getPlayerIndex()].contains(OBJECT.EXIT)) {
             proceedToNextLevel();
+            return RESULT.EXIT;
         }
 
-        return RESULT.OK;
+        if (map[getPlayerIndex()].contains(OBJECT.HOSPITAL)) {
+            // HP restoration
+            return RESULT.HOSPITAL;
+        }
+
+        return RESULT.EMPTY;
     }
 
     function processShoot(direction) {

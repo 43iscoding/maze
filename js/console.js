@@ -23,10 +23,16 @@
             en: ["You have jumped through the portal", "You have been teleported"]
         };
         dict[RESULT.ARSENAL] = {
-            en: ["Your ammo was replenished"]
+            en: ["You were moved to arsenal. Your ammo was replenished."]
+        };
+        dict[RESULT.HOSPITAL] = {
+            en: ["You find hospital! Your hp is full now."]
         };
         dict[RESULT.PICKUP_TREASURE] = {
             en: ["You have found a treasure!"]
+        };
+        dict[RESULT.EXIT] = {
+            en: ["Congratulation! You come out of the maze."]
         };
         dict[RESULT.CANT_EXIT] = {
             en: ["You can`t exit maze without treasure"]
@@ -63,6 +69,9 @@
         };
         dict[RESULT.STUCK_IN_SWAMP] = {
             en: ["You stuck in swamp! Skip turn."]
+        };
+        dict[RESULT.EMPTY]  = {
+            en: ["You have successfully moved. There`s nothing here."]
         };
         return dict;
     }

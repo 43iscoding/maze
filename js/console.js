@@ -70,8 +70,14 @@
         dict[RESULT.STUCK_IN_SWAMP] = {
             en: ["You stuck in swamp! Skip turn."]
         };
-        dict[RESULT.EMPTY]  = {
+        dict[RESULT.EMPTY] = {
             en: ["You have successfully moved. There`s nothing here."]
+        };
+        dict[RESULT.MODE_KEYBOARD] = {
+            en: ["Game mode has been switched to KEYBOARD"]
+        };
+        dict[RESULT.MODE_TEXT] = {
+            en: ["Game mode has been switched to TEXT"]
         };
         return dict;
     }
@@ -85,7 +91,13 @@
 
     function processInput(key) {
         var consoleInput = document.getElementById("consoleInput");
-        if (key == 'BACKSPACE') {
+        if (key == 'F1') {
+            processCommand(actions.SET_MODE_KEYBOARD);
+            consoleInput.innerHTML = '';
+        /*} else if (key == 'F2') {
+            processCommand(actions.SET_MODE_TEXT);
+            consoleInput.innerHTML = '';*/
+        } else if (key == 'BACKSPACE') {
             consoleInput.innerHTML = consoleInput.innerHTML.substring(0, consoleInput.innerHTML.length - 1);
         } else if (key == 'ENTER') {
             processCommand(consoleInput.innerHTML);

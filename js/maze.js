@@ -219,11 +219,11 @@
     var modifier = null;
 
     function turn(key) {
-        switch (gameMode) {
+        switch (getMode()) {
             case GAME_MODE.KEYBOARD: return processKeyboard(key);
             case GAME_MODE.TEXT: return mazeConsole.input(key);
             case GAME_MODE.MOUSE: console.log("Mouse mode not supported yet"); break;
-            default: console.log("Unknown game mode: " + gameMode);
+            default: console.log("Unknown game mode: " + getMode());
         }
     }
 
@@ -285,7 +285,12 @@
             return actions.JUMP;
         } else if (key == 'H') {
             return actions.HOLD;
+/*        } else if (key == 'F1') {
+            return actions.SET_MODE_KEYBOARD;*/
+        } else if (key == 'F2') {
+            return actions.SET_MODE_TEXT;
         }
+
 
         return actions.NONE;
     }
@@ -427,6 +432,14 @@
 
             case actions.JUMP: {
                 return processJump();
+            }
+            case actions.SET_MODE_KEYBOARD: {
+                setMode(GAME_MODE.KEYBOARD);
+                return RESULT.MODE_KEYBOARD;
+            }
+            case actions.SET_MODE_TEXT: {
+                setMode(GAME_MODE.TEXT);
+                return RESULT.MODE_TEXT;
             }
             default: {
                 console.log("Unknown action: " + action);

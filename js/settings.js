@@ -10,7 +10,13 @@
         MOUSE: 'MOUSE'
     };
 
-    window.gameMode = GAME_MODE.KEYBOARD;
+    var gameMode = GAME_MODE.KEYBOARD;
+    window.getMode = function() {
+        return gameMode;
+    };
+    window.setMode = function(mode) {
+        gameMode = mode;
+    };
 
     window.cookie = {
         MUTED : "muted",
@@ -43,7 +49,9 @@
             BOMB_DOWN: 'BOMB_DOWN',
             BOMB_LEFT: 'BOMB_LEFT',
             BOMB_RIGHT: 'BOMB_RIGHT',
-        JUMP: 'JUMP'
+        JUMP: 'JUMP',
+        SET_MODE_KEYBOARD: 'SET_MODE_KEYBOARD',
+        SET_MODE_TEXT: 'SET_MODE_TEXT'
     };
 
     window.DIRECTION = {
@@ -75,7 +83,9 @@
         BOMB_MODIFIER: "BOMB_MODIFIER",
         FELL_INTO_SWAMP: "FELL_INTO_SWAMP",
         STUCK_IN_SWAMP: "STUCK_IN_SWAMP",
-        EMPTY: "EMPTY"
+        EMPTY: "EMPTY",
+        MODE_KEYBOARD: "MODE_KEYBOARD",
+        MODE_TEXT: "MODE_TEXT"
     };
 
 

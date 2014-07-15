@@ -8,7 +8,8 @@
 
     function preventDefault(e) {
         if (e.which == input.keys.BACKSPACE.code ||
-            e.which == input.keys.TAB.code) {
+            e.which == input.keys.TAB.code ||
+            e.which == input.keys.F1.code) {
             e.preventDefault();
         }
     }

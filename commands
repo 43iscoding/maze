@@ -1,0 +1,21 @@
+move/go (shoot/bomb)
+. down/south
+. up/north
+. left/east
+. right/west
+
+hold/wait/skip - skip a turn
+
+jump/dive/portal - dive into portal
+
+map - toggle map?
+
+---------------------------------
+
+help - help window?
+
+info - show ammo/bomb/treasure
+ammo - show ammo/bombs
+
+
+

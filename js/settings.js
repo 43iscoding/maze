@@ -10,7 +10,7 @@
         MOUSE: 'MOUSE'
     };
 
-    var gameMode = GAME_MODE.KEYBOARD;
+    var gameMode = GAME_MODE.TEXT;
     window.getMode = function() {
         return gameMode;
     };

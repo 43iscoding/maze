@@ -410,7 +410,7 @@
             }
             case actions.BOMB_MODIFIER: {
                 modifier = actions.BOMB + "_";
-               return RESULT.BOMB_MODIFIER;
+                return RESULT.BOMB_MODIFIER;
             }
             case actions.SHOOT_UP: return processShoot(DIRECTION.UP);
             case actions.SHOOT_DOWN: return processShoot(DIRECTION.DOWN);
